@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Mon salaire en intérim</title>
+
+		<link rel="icon" href="img/favicon.ico"/>
+		<link href="https://fonts.googleapis.com/css?family=Dosis:500" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css"/>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+		<script src="js/calcul.js" type="text/javascript"></script>
+	</head>
+
+	<body onload="ready()">
+		<div class="col-sm-12 red">
+			<noscript class="red">
+				Pour naviguer sur ce site, vous devez activer JavaScript.<br/>
+				Si vous êtes sur Internet Explorer, merci de cliquer sur "Autoriser le contenu bloqué" en bas de la page.<br/>
+				Besoin d'aide : <a href="http://www.enable-javascript.com/fr/" titre="No Javascript" target="_blank" id="cliquez">cliquez ici !</a>
+			</noscript>
+		</div>
+
+		<div class="blanc" id="titre">
+
+			<div class="row container-fluid">
+				<div class="col-sm-12 blanc">
+					<h1>Je calcule mon salaire en intérim</h1>
+				</div>
+			</div>
+
+			<div class="row container-fluid blanc">
+
+				<div class="col-sm-4 offset-sm-2 col-lg-3 offset-lg-3 blanc center">
+					<a class="menu selected" href="index.html">Simuler son salaire</a>
+				</div>
+
+				<div class="col-sm-4 col-lg-3 blanc center">
+					<a class="menu" href="comprendre-salaire.html">Comprendre son salaire</a>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div id="corp">
+			<div class="row container-fluid">
+				<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 bleu bloc">
+					<div class="row container-fluid bleu">
+						<div class="col-6 offset-0 col-sm-4 offset-sm-1 bleu">
+							<h2 class="tall bleu">Taux horaire brut</h2>
+						</div>
+
+						<div class="col-2 offset-7 offset-sm-0 flex-last flex-sm-unordered bleu right">
+							<span id="smic" onclick="smic()">SMIC</span>
+						</div>
+
+						<div class="col-5 col-sm-4 right bleu">
+							<div class="input-group tall right">
+								<input type="text" class="form-control right tall" id="tauxHoraire"
+									value="0" onkeyup="convertFunction()">
+								<span class="input-group-addon tall right">€</span>
+							</div>
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="row container-fluid">
+						<div class="col-6 offset-0 col-sm-5 offset-sm-1 bleu">
+							<p class="tall bleu">Nombre d'heures hebdo</p>
+						</div>
+
+						<div class="col-5 right bleu">
+							<div class="input-group tall right">
+								<input type="text" class="form-control right tall" id="nombreHeuresHebdo"
+									value="35" onkeyup="convertFunction()">
+								<span class="input-group-addon tall right">h</span>
+							</div>
+						</div>
+					</div>
+
+					<div id="collapseHeuresSupp" class="collapse bleu">
+						<div class="arrow-up"></div>
+						<div class="col-12 offset-0 col-sm-10 offset-sm-1 darkBleu radius">
+							<br/>
+							<div class="row container-fluid darkBleu">
+								<br/>
+
+								<div class="col-10 col-sm-auto darkBleu small">
+									<p class="small darkBleu">avec des heures supplémentaires à partir de</p>
+								</div>
+
+								<div class="col-2 darkBleu">
+									<select class="xsmall darkBleu" name="heuresSupp" id="baseHebdo"
+										onchange="convertFunction()">
+										<option value="35" selected>35 h</option>
+										<option value="37">37 h</option>
+										<option value="37.5">37.5 h</option>
+										<option value="38">38 h</option>
+										<option value="38.5">38.5 h</option>
+										<option value="39">39 h</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="row container-fluid">
+								<div class="col-10 col-sm-auto darkBleu small">
+									<p class="small darkBleu">avec une majoration des heures supplémentaires de</p>
+								</div>
+
+								<div class="col-2 darkBleu">
+									<select name="majo" class="xsmall darkBleu" id="marjorationHeuresSupp"
+										onchange="convertFunction()">
+										<option value="10">10 %</option>
+										<option value="15">15 %</option>
+										<option value="20">20 %</option>
+										<option value="25" selected>25 %</option>
+										<option value="30">30 %</option>
+										<option value="35">35 %</option>
+										<option value="40">40 %</option>
+										<option value="45">45 %</option>
+										<option value="50">50 %</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<br/>
+
+					<div class="row container-fluid">
+						<div class="col-6 offset-0 col-sm-4 offset-sm-1 bleu">
+							<p class="tall bleu">13e mois</p>
+						</div>
+
+						<div class="col-2 offset-3 offset-sm-4 bleu ajuster2">
+							<div class="onoffswitch bleu">
+								<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+									id="isTreiziemeMois" onchange="convertFunction()">
+									<label class="onoffswitch-label" for="isTreiziemeMois">
+										<span class="onoffswitch-inner"></span>
+										<span class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<br/>
+
+						<div class="row container-fluid">
+							<div class="col-7 offset-0 col-sm-4 offset-sm-1 bleu">
+								<p class="tall bleu">Tickets Restaurant</p>
+							</div>
+
+							<div class="col-2 offset-2 offset-sm-4 bleu ajuster2">
+								<div class="onoffswitch bleu">
+									<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+									id="isTickets" onchange="convertFunction()">
+									<label class="onoffswitch-label" for="isTickets">
+										<span class="onoffswitch-inner"></span>
+										<span class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div id="collapseTickets" class="collapse bleu">
+							<div class="arrow-up"></div>
+							<div class="row container-fluid bleu">
+								<div class="col-12 col-sm-10 offset-0 offset-sm-1 darkBleu radius">
+									<br/>
+									<div class="row container-fluid darkBleu">
+										<div class="col-6 col-sm-4 darkBleu">
+											<p class="small darkBleu">Montant du ticket</p>
+										</div>
+
+										<div class="col-6 offset-0 col-sm-5 offset-sm-3 col-md-4 offset-md-4 right darkBleu">
+											<div class="input-group tall right darkBleu">
+												<input type="text" class="form-control right tall darkBleu" value="0" id="tickets"
+													onkeyup="convertFunction()">
+													<span class="input-group-addon tall right darkBleu">€</span>
+												</div>
+											</div>
+										</div>
+
+										<br/>
+
+										<div class="row container-fluid darkBleu">
+											<div class="col-1 darkBleu">
+												<div class="warningPillWhite">
+													<span class="warning">!</span>
+												</div>
+											</div>
+
+											<div class="col-10 col-sm-11 darkBleu">
+												<p class="small darkBleu">
+													ATTENTION : pour simplifier, on considère que la part salariale des tickets
+													restaurant vaut 50% du ticket.
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<br/>
+
+							<div class="row container-fluid">
+								<div class="col-7 offset-0 col-sm-5 offset-sm-1 bleu">
+									<p class="tall bleu">Primes et avantages</p>
+								</div>
+
+								<div class="col-2 offset-2 offset-sm-3 bleu ajuster2">
+									<div class="onoffswitch bleu">
+										<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="arePrimes"
+										onchange="convertFunction()">
+										<label class="onoffswitch-label" for="arePrimes">
+											<span class="onoffswitch-inner"></span>
+											<span class="onoffswitch-switch"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div id="collapsePrimes" class="collapse bleu">
+								<div class="arrow-up">
+								</div>
+
+								<div class="row container-fluid bleu">
+									<div class="col-12 offset-0 col-sm-10 offset-sm-1 darkBleu radius">
+										<br/>
+										<div class="row container-fluid darkBleu">
+											<div class="col-3 col-lg-2 offset-1 offset-sm-2 offset-lg-3 darkBleu">
+												<p class="small darkBleu" id="jour">Journalière</p>
+											</div>
+
+											<div class="col-2 darkBleu">
+												<p class="small darkBleu">Mensuelle</p>
+											</div>
+										</div>
+
+										<br/>
+
+										<div class="row container-fluid darkBleu">
+											<div class="col-3 darkBleu">
+												<p class="small darkBleu">Prime 1</p>
+											</div>
+
+											<div class="col-4 container">
+												<ul>
+													<li>
+														<input type="radio" checked name="prime1" id="isMonthly1"
+															onchange="convertFunction()">
+														<label for="isMonthly1"></label>
+														<div class="check"></div>
+													</li>
+													<li>
+														<input type="radio" name="prime1" id="isDayly1"
+															onchange="convertFunction()">
+														<label for="isDayly1"></label>
+														<div class="check">
+															<div class="inside"></div>
+														</div>
+													</li>
+												</ul>
+											</div>
+
+											<div class="col-4 col-sm-5 offset-0 col-md-4 offset-md-1 right darkBleu">
+												<div class="input-group tall right darkBleu">
+													<input type="text" class="form-control right tall darkBleu"
+														value="0" id="prime1" onkeyup="convertFunction()">
+														<span class="input-group-addon tall right darkBleu">€</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="row container-fluid darkBleu"><div class="col-3 darkBleu">
+												<p class="small darkBleu">Prime 2</p>
+											</div>
+
+											<div class="col-4 container">
+												<ul>
+													<li>
+														<input type="radio" checked name="prime2" id="isMonthly2"
+														onchange="convertFunction()">
+														<label for="isMonthly2"></label>
+														<div class="check"></div>
+													</li>
+													<li>
+														<input type="radio" name="prime2" id="isDayly2" onchange="convertFunction()">
+														<label for="isDayly2"></label>
+														<div class="check">
+															<div class="inside"></div>
+														</div>
+													</li>
+												</ul>
+											</div>
+
+											<div class="col-4 col-sm-5 offset-0 col-md-4 offset-md-1 right darkBleu">
+												<div class="input-group tall right darkBleu">
+													<input type="text" class="form-control right tall darkBleu"
+														value="0" id="prime2" onkeyup="convertFunction()">
+													<span class="input-group-addon tall right darkBleu">€</span>
+												</div>
+											</div>
+										</div>
+
+										<div class="row container-fluid darkBleu">
+											<div class="col-3 darkBleu">
+												<p class="small darkBleu">Prime 3</p>
+											</div>
+
+											<div class="col-4 container">
+												<ul>
+													<li>
+														<input type="radio" checked name="prime3" id="isMonthly3" onchange="convertFunction()">
+														<label for="isMonthly3"></label>
+														<div class="check"></div>
+													</li>
+													<li>
+														<input type="radio" name="prime3" id="isDayly3" onchange="convertFunction()">
+														<label for="isDayly3"></label>
+														<div class="check">
+															<div class="inside"></div>
+														</div>
+													</li>
+												</ul>
+											</div>
+
+											<div class="col-4 col-sm-5 offset-0 col-md-4 offset-md-1 right darkBleu">
+												<div class="input-group tall right darkBleu">
+													<input type="text" class="form-control right tall darkBleu"
+														value="0" id="prime3" onkeyup="convertFunction()">
+													<span class="input-group-addon tall right darkBleu">€</span>
+												</div>
+											</div>
+										</div>
+
+										<div class="row container-fluid darkBleu">
+											<div class="col-1 darkBleu">
+												<div class="warningPillWhite">
+													<span class="warning">!</span>
+												</div>
+											</div>
+											<div class="col-10 col-sm-11 darkBleu">
+												<p class="small darkBleu">
+													ATTENTION : pour simplifier, nous appliquons des charges salariales à toutes les
+													primes. Le salaire réel sera légèrement supérieur aux prévisions.
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row container-fluid">
+						<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 blanc bloc">
+							<div class="row container-fluid">
+								<div class="col-8 offset-0 col-sm-5 offset-sm-1 blanc">
+									<h2 class="tall">Salaire net de base</h2>
+									<div class="warningPillBlue">
+										<span class="popoverData" data-content="Si la mission dure plusieurs mois, voilà ce
+											qu'on gagne si le contrat n'est pas terminé. Car le 13e mois, les IFP et congés
+											payés sont versés à la fin de la mission."
+											rel="popover" data-placement="top" data-trigger="hover">
+											?
+										</span>
+									</div>
+								</div>
+
+								<div class="col-4 col-sm-5 right blanc">
+									<p class="tall right" id="salaireBase">0</p>
+									<p class="tall right">€</p>
+								</div>
+							</div>
+
+							<div class="row container-fluid">
+								<div class="col-7 offset-0 col-sm-5 offset-sm-1 blanc">
+									<p class="tall">13e mois</p>
+								</div>
+
+								<div class="col-5 right blanc">
+									<p class="tall right" id="treiziemeMois">0</p>
+									<p class="tall right">€</p>
+								</div>
+							</div>
+
+							<div class="row container-fluid">
+								<div class="col-7 offset-0 col-sm-5 offset-sm-1 blanc">
+									<p class="tall">IFM</p>
+								</div>
+
+								<div class="col-5 right blanc">
+									<p class="tall right" id="IFM">0</p>
+									<p class="tall right">€</p>
+								</div>
+							</div>
+
+							<div class="row container-fluid">
+								<div class="col-7 offset-0 col-sm-5 offset-sm-1 blanc">
+									<p class="tall">Congés Payés</p>
+								</div>
+
+								<div class="col-5 right blanc">
+									<p class="tall right" id="CP">0</p>
+									<p class="tall right">€</p>
+								</div>
+							</div>
+
+							<br/>
+
+							<div class="row container-fluid">
+								<div class="col-8 offset-0 col-sm-5 offset-sm-1 blanc">
+									<p class="middle">Salaire net total</p>
+									<div class="warningPillBlue">
+										<span class="popoverData" data-content="Voilà ce qu'on gagne en moyenne en prenant
+											en compte le 13e mois, les IFM et les congés payés."
+											rel="popover" data-placement="top" data-trigger="hover">
+											?
+										</span>
+									</div>
+								</div>
+
+								<div class="col-4 col-sm-5 right blanc">
+									<p class="middle right" id="salaireNetTotal">0</p>
+									<p class="middle right">€</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row container-fluid">
+						<div class="col-12 footer">
+							<a class="grey" href="mentions-legales.html">- Mentions Légales -</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
