@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/CharlesRngrd/ConvertisseurSalaireJavascriptNatif/blob/master/img/image.png">
+</p>
+
 ## Convertisseur de salaire pour l'intérim ##
 
 Ce site permet de réaliser des simulations de salaire dans le cadre de l'intérim.
